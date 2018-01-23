@@ -2,7 +2,6 @@ import tensorflow as tf
 import numpy as np
 import svhn
 import NNutils
-import flags
 from datetime import datetime
 
 from scipy.sparse import csr_matrix
@@ -131,8 +130,8 @@ class Network():
             tf.global_variables_initializer().run()
 
             # dataset = fetch_20newsgroups(data_home="C:/Projects/Data/20newsgroups", subset='all')
-            trainset = fetch_20newsgroups(data_home=flags.NEWS_DIR, subset='train')
-            testset = fetch_20newsgroups(data_home=flags.NEWS_DIR, subset='test')
+            trainset = fetch_20newsgroups(data_home="C:/Projects/Data/20newsgroups", subset='train')
+            testset = fetch_20newsgroups(data_home="C:/Projects/Data/20newsgroups", subset='test')
 
             vectorizer = TfidfVectorizer(analyzer='word', max_features=3072)
 

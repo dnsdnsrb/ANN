@@ -3,28 +3,7 @@ import numpy as np
 import NNutils
 import mnist
 from datetime import datetime
-
-def fc_layer(name, x, output_num, activation='none', dropout=None):
-    weight = tf.get_variable(name, [x.get_shape().as_list()[1], output_num],
-                             initializer=tf.random_normal_initializer(stddev=0.01))
-    bias = tf.Variable(tf.zeros(output_num))
-
-    y = tf.matmul(x, weight) + bias
-
-    if activation == 'relu':
-        y = tf.nn.relu(y)
-    elif activation == 'tanh':
-        y = tf.nn.tanh(y)
-    elif activation == 'sigmoid':
-        y = tf.nn.sigmoid(y)
-    elif activation == 'none':
-        pass
-
-    if not dropout is None:
-        y = tf.layers.dropout(y, dropout)
-
-    return y
-
+import flags
 class Network():
     def __init__(self, layers = [400, 200, 100], regul=False, bn=False, droprate=.0):
         self.batch_size = 128
@@ -71,7 +50,7 @@ class Network():
         output = tf.layers.dense(x, output_num, activation=activation,
                                  kernel_initializer=tf.random_normal_initializer(stddev=0.01),
                                  kernel_regularizer=self.regularizer)
-        output = tf.layers.dropout(output, dropout)
+        output = tf.nn.dropout(output, 1 - dropout)
 
         y = output
         return y
@@ -144,7 +123,7 @@ class Network():
         with tf.Session() as sess:
             tf.global_variables_initializer().run()
 
-            dataset = mnist.read_data_sets("C:/Projects/Data/MNIST_data", one_hot=True)
+            dataset = mnist.read_data_sets(flags.MNIST_DIR, one_hot=True)
             train_data, train_label, test_data, test_label = dataset.train.images, dataset.train.labels, \
                                           dataset.test.images, dataset.test.labels
 

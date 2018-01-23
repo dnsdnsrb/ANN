@@ -52,7 +52,7 @@ class Network():
         output = tf.layers.dense(x, output_num, activation=activation,
                                  kernel_initializer=tf.random_normal_initializer(stddev=0.01),
                                  kernel_regularizer=self.regularizer)
-        output = tf.layers.dropout(output, dropout)
+        output = tf.nn.dropout(output, 1 - dropout)
 
         y = output
         return y

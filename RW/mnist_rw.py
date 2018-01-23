@@ -44,7 +44,7 @@ class Network():
 
         self.train_list = []
 
-        self.activation = "tanh"
+        self.activation = "sigmoid"
         self.network = "rw"
 
     def info(self):
@@ -125,7 +125,7 @@ class Network():
         with tf.Session() as sess:
             tf.global_variables_initializer().run()
 
-            dataset = mnist.read_data_sets("C:/YWK/Projects/Python/Data/MNIST_data", one_hot=True)
+            dataset = mnist.read_data_sets("C:/Projects/Data/MNIST_data", one_hot=True)
             train_data, train_label, test_data, test_label = dataset.train.images, dataset.train.labels, \
                                           dataset.test.images, dataset.test.labels
 

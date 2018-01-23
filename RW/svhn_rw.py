@@ -44,7 +44,7 @@ class Network():
 
         self.train_list = []
 
-        self.activation = "tanh"
+        self.activation = "sigmoid"
         self.network = "rw"
 
     def info(self):

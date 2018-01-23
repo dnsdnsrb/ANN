@@ -2,12 +2,12 @@ import tensorflow as tf
 import numpy as np
 import NNutils
 import mnist
-import flags
 from datetime import datetime
 
 from scipy.sparse import csr_matrix
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import TfidfVectorizer
+import flags
 
 class Network():
     def __init__(self, layers = [600, 450, 300, 200, 100], regul=False, bn=False, droprate=.0):
@@ -55,7 +55,7 @@ class Network():
         output = tf.layers.dense(x, output_num, activation=activation,
                                  kernel_initializer=tf.random_normal_initializer(stddev=0.01),
                                  kernel_regularizer=self.regularizer)
-        output = tf.layers.dropout(output, droprate)
+        output = tf.nn.dropout(output, 1 - droprate)
 
         y = output
         return y

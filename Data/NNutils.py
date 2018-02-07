@@ -5,12 +5,24 @@ from PIL import Image
 import shutil
 
 
-def onehot(length, origin):  # (onehot 배열 크기, 1이 되야하는 인덱스)
+def onehot(x, size, list=False):
+    if list == False:
+        onehot = np.zeros(size)
+        onehot[x] = 1
+        return onehot
+    else:
+        onehot = np.zeros([len(x), size])
+        onehot[range(len(x)), x] = 1
+        return onehot
 
-    onehot = np.zeros([len(origin), length], dtype=np.uint8)
-    onehot[range(len(origin)), origin] = 1
 
-    return onehot
+
+# def onehot(x, length):  # (onehot 배열 크기, 1이 되야하는 인덱스)
+#
+#     onehot = np.zeros([len(x), length], dtype=np.uint8)
+#     onehot[range(len(x)), x] = 1
+#
+#     return onehot
 
 def save(path, sess):
     saver = tf.train.Saver()
